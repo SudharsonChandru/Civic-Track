@@ -74,7 +74,7 @@ export default function IssueDetail() {
           </div>
         </div>
 
-        // ✅ NEW — works with Cloudinary
+        
 {issue.photo && issue.photo !== "" && (
   <img
     src={issue.photo}
@@ -84,10 +84,6 @@ export default function IssueDetail() {
   />
 )}
 
-       /* {issue.photo && (
-          <img src={issue.photo} alt="Issue" />
-          //<img src={`http://localhost:5000${issue.photo}`} alt="Issue" className="detail-photo" />
-        )}*/
 
         <div className="detail-desc">{issue.description}</div>
 
