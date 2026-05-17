@@ -41,7 +41,9 @@ const createIssue = async (req, res) => {
     if (!title || !description || !category || !location)
       return res.status(400).json({ message: "Please fill all required fields" });
 
-    const photo = req.file ? `/uploads/${req.file.filename}` : "";
+    //const photo = req.file ? `/uploads/${req.file.filename}` : "";
+    // ✅ NEW — cloudinary URL
+    const photo = req.file ? req.file.path : "";
     const issue = await Issue.create({
       title, description, category,
       priority: priority || "Normal",

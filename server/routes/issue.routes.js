@@ -1,12 +1,17 @@
 const express  = require("express");
 const router   = express.Router();
-const multer   = require("multer");
-const path     = require("path");
+/*  const multer   = require("multer");
+const path     = require("path");*/
+
+const { upload } = require("../config/cloudinary");
+
 const { protect, authorize } = require("../middleware/auth.middleware");
 const {
   getIssues, getIssueById, createIssue,
   updateStatus, upvoteIssue, addComment, deleteIssue,
 } = require("../controllers/issue.controller");
+
+/*
 
 // Multer config for photo uploads
 const storage = multer.diskStorage({
@@ -21,7 +26,7 @@ const upload = multer({
     cb(null, allowed.test(path.extname(file.originalname).toLowerCase()));
   },
 });
-
+*/
 router.get("/",              protect, getIssues);
 router.get("/:id",           protect, getIssueById);
 router.post("/",             protect, upload.single("photo"), createIssue);

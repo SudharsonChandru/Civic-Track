@@ -75,7 +75,8 @@ export default function IssueDetail() {
         </div>
 
         {issue.photo && (
-          <img src={`http://localhost:5000${issue.photo}`} alt="Issue" className="detail-photo" />
+          <img src={issue.photo} alt="Issue" />
+          //<img src={`http://localhost:5000${issue.photo}`} alt="Issue" className="detail-photo" />
         )}
 
         <div className="detail-desc">{issue.description}</div>
