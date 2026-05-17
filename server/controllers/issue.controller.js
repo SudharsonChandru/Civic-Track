@@ -38,21 +38,44 @@ const getIssueById = async (req, res) => {
 const createIssue = async (req, res) => {
   try {
     const { title, description, category, priority, location } = req.body;
+
     if (!title || !description || !category || !location)
       return res.status(400).json({ message: "Please fill all required fields" });
 
-    //const photo = req.file ? `/uploads/${req.file.filename}` : "";
-    // ✅ NEW — cloudinary URL
-    const photo = req.file ? req.file.path : "";
+    // ── Get Cloudinary URL ──────────────────
+    let photo = "";
+    if (req.file) {
+      // Cloudinary returns URL in different fields
+      photo = req.file.secure_url      // ← try this first
+           || req.file.path            // ← fallback
+           || req.file.url             // ← fallback
+           || "";
+      console.log("Photo URL saved:", photo); // ← debug
+    }
+
+    // ── Parse Location ──────────────────────
+    let parsedLocation;
+    try {
+      parsedLocation = typeof location === "string"
+        ? JSON.parse(location)
+        : location;
+    } catch {
+      parsedLocation = { address: location, lat: 0, lng: 0 };
+    }
+
     const issue = await Issue.create({
-      title, description, category,
+      title,
+      description,
+      category,
       priority: priority || "Normal",
-      location: typeof location === "string" ? JSON.parse(location) : location,
+      location: parsedLocation,
       photo,
       reportedBy: req.user._id,
     });
+
     res.status(201).json(issue);
   } catch (err) {
+    console.error("Create issue error:", err);
     res.status(500).json({ message: err.message });
   }
 };
