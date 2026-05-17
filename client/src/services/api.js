@@ -3,6 +3,17 @@ import axios from "axios";
 // ── Base URL ─────────────────────────────────
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+// ── Set Token if exists in localStorage ───────
+const stored = localStorage.getItem("citUser");
+if (stored) {
+  try {
+    const u = JSON.parse(stored);
+    if (u?.token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${u.token}`;
+    }
+  } catch {}
+}
+
 // ── Auth ────────────────────────────────────
 export const apiLogin    = (data)  => axios.post("/api/auth/login",    data);
 export const apiRegister = (data)  => axios.post("/api/auth/register", data);

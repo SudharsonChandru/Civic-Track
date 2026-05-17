@@ -11,9 +11,16 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const stored = localStorage.getItem("citUser");
     if (stored) {
-      const u = JSON.parse(stored);
-      setUser(u);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${u.token}`;
+      try {
+        const u = JSON.parse(stored);
+        setUser(u);
+        // ── Set token on every page load ──
+        if (u?.token) {
+          axios.defaults.headers.common["Authorization"] = `Bearer ${u.token}`;
+        }
+      } catch {
+        localStorage.removeItem("citUser");
+      }
     }
     setLoading(false);
   }, []);
@@ -21,14 +28,18 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const { data } = await axios.post("/api/auth/login", { email, password });
     localStorage.setItem("citUser", JSON.stringify(data));
+    // ── Set token immediately after login ──
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
     setUser(data);
     return data;
   };
 
   const register = async (name, email, password, role, phone) => {
-    const { data } = await axios.post("/api/auth/register", { name, email, password, role, phone });
+    const { data } = await axios.post("/api/auth/register", {
+      name, email, password, role, phone
+    });
     localStorage.setItem("citUser", JSON.stringify(data));
+    // ── Set token immediately after register ──
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
     setUser(data);
     return data;
