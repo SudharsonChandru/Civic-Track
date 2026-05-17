@@ -11,8 +11,9 @@ const app = express();
 // ── Middleware ──────────────────────────────
 app.use(cors({
   origin: [
-    "http://localhost:3000",                      // local development
-    "https://https://civictrack-sudharson-mcaproject.netlify.app"           // ← your Netlify URL
+    "http://localhost:3000",        // local development
+    "https://civic-track-9qfz6ht8k-sudharson-s-projects.vercel.app"              
+    //"https://civic-track-blue.vercel.app"          
   ],
   credentials: true
 }));
