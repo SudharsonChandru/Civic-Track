@@ -9,7 +9,13 @@ dotenv.config();
 const app = express();
 
 // ── Middleware ──────────────────────────────
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",                      // local development
+    "https://https://civictrack-sudharson-mcaproject.netlify.app"           // ← your Netlify URL
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
