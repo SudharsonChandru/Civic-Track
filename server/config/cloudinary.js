@@ -1,5 +1,5 @@
 const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const CloudinaryStorage = require("multer-storage-cloudinary");
 const multer = require("multer");
 
 // Configure Cloudinary
@@ -9,14 +9,12 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Configure Multer Storage
+// Configure Storage
 const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder:         "civic-track",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [{ width: 800, height: 600, crop: "limit" }],
-  },
+  cloudinary: cloudinary,
+  folder:          "civic-track",
+  allowedFormats:  ["jpg", "jpeg", "png", "webp"],
+  transformation:  [{ width: 800, height: 600, crop: "limit" }],
 });
 
 const upload = multer({ storage });
