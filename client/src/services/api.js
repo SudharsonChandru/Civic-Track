@@ -1,6 +1,7 @@
-import axiosLib from "axios";
+import axios from "axios";
 
-const axios = axiosLib.create({baseURL:process.env.REACT_APP_API_URL,});
+// ── Base URL ─────────────────────────────────
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 // ── Auth ────────────────────────────────────
 export const apiLogin    = (data)  => axios.post("/api/auth/login",    data);
