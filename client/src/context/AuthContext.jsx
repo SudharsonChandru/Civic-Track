@@ -3,19 +3,21 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
+// ── Axios instance base URL ───────────────────
+axios.defaults.baseURL = process.env.REACT_APP_API_URL
+  || "http://localhost:5000";
+
 export function AuthProvider({ children }) {
   const [user,    setUser]    = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem("citUser");
     if (stored) {
       try {
         const u = JSON.parse(stored);
-        setUser(u);
-        // ── Set token on every page load ──
         if (u?.token) {
+          setUser(u);
           axios.defaults.headers.common["Authorization"] = `Bearer ${u.token}`;
         }
       } catch {
@@ -28,7 +30,6 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const { data } = await axios.post("/api/auth/login", { email, password });
     localStorage.setItem("citUser", JSON.stringify(data));
-    // ── Set token immediately after login ──
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
     setUser(data);
     return data;
@@ -36,10 +37,9 @@ export function AuthProvider({ children }) {
 
   const register = async (name, email, password, role, phone) => {
     const { data } = await axios.post("/api/auth/register", {
-      name, email, password, role, phone
+      name, email, password, role, phone,
     });
     localStorage.setItem("citUser", JSON.stringify(data));
-    // ── Set token immediately after register ──
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
     setUser(data);
     return data;
