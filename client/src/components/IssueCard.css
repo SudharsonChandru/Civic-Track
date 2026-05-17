@@ -1,0 +1,60 @@
+.issue-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(6,95,70,0.07);
+}
+.issue-card:hover {
+  background: var(--card-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(5,150,105,0.15);
+}
+.ic-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 10px; margin-bottom: 10px;
+}
+.ic-title {
+  font-size: 15px; font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  line-height: 1.3; flex: 1;
+  color: var(--dark);
+}
+.ic-desc {
+  font-size: 13px; color: var(--muted);
+  line-height: 1.5; margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ic-meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-size: 12px; color: var(--muted);
+  margin-bottom: 14px;
+}
+.ic-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.upvote-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 12px; border-radius: 8px;
+  font-size: 13px; cursor: pointer;
+  transition: all 0.2s;
+}
+.upvote-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(5,150,105,0.08); }
+.upvote-btn.voted {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(5,150,105,0.12);
+  font-weight: 600;
+}

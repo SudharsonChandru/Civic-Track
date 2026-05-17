@@ -1,0 +1,83 @@
+/* ── BADGES ──────────────────────────────── */
+.badge {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+  white-space: nowrap; display: inline-block;
+}
+.badge-pending  { background: rgba(245,158,11,0.12);  color: #92400e; border: 1px solid rgba(245,158,11,0.4); }
+.badge-progress { background: rgba(59,130,246,0.12);  color: #1e40af; border: 1px solid rgba(59,130,246,0.35); }
+.badge-resolved { background: rgba(5,150,105,0.12);   color: #065f46; border: 1px solid rgba(5,150,105,0.35); }
+.pri-urgent { background: rgba(239,68,68,0.1);   color: #991b1b;  border: 1px solid rgba(239,68,68,0.35); }
+.pri-high   { background: rgba(234,88,12,0.1);   color: #9a3412;  border: 1px solid rgba(234,88,12,0.35); }
+.pri-normal { background: rgba(5,150,105,0.1);   color: #065f46;  border: 1px solid rgba(5,150,105,0.3); }
+.pri-low    { background: rgba(107,114,128,0.1); color: #374151;  border: 1px solid rgba(107,114,128,0.3); }
+
+.category-tag {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--dark);
+  padding: 3px 10px; border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+  display: inline-block;
+}
+
+/* ── SPINNER ─────────────────────────────── */
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 60px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── PAGE HEADER ─────────────────────────── */
+.page-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px; gap: 16px;
+}
+.page-title { font-size: 26px; font-weight: 800; color: var(--dark); }
+.page-sub   { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+/* ── STAT CARDS ──────────────────────────── */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(6,95,70,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(6,95,70,0.12);
+}
+.stat-card::before {
+  content: ''; position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 80px;
+  border-radius: 50%; opacity: 0.08;
+  transform: translate(20px, -20px);
+}
+.stat-orange::before { background: #f97316; }
+.stat-yellow::before { background: var(--yellow); }
+.stat-blue::before   { background: var(--blue); }
+.stat-green::before  { background: var(--accent); }
+.stat-red::before    { background: var(--red); }
+
+.stat-icon  { font-size: 22px; margin-bottom: 12px; }
+.stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; margin-bottom: 8px; }
+.stat-value { font-size: 30px; font-weight: 800; font-family: 'Syne', sans-serif; }
+.stat-orange .stat-value { color: #ea580c; }
+.stat-yellow .stat-value { color: #b45309; }
+.stat-blue   .stat-value { color: #1d4ed8; }
+.stat-green  .stat-value { color: var(--accent); }
+.stat-red    .stat-value { color: #dc2626; }
+
+/* ── EMPTY STATE ─────────────────────────── */
+.empty-state { text-align: center; padding: 64px 20px; color: var(--muted); }
+.empty-icon  { font-size: 52px; margin-bottom: 14px; }
+.empty-text  { font-size: 15px; }

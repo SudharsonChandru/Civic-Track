@@ -1,0 +1,97 @@
+/* ── STATS GRID ──────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-bottom: 32px;
+}
+
+/* ── ISSUES GRID ─────────────────────────── */
+.issues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* ── SECTION ─────────────────────────────── */
+.section-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 16px; font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  color: var(--dark);
+}
+
+/* ── BUTTONS ─────────────────────────────── */
+.primary-btn {
+  background: var(--accent); color: white;
+  border: none; padding: 10px 20px;
+  border-radius: 10px; font-size: 14px;
+  font-weight: 700; font-family: 'Syne', sans-serif;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.25);
+}
+.primary-btn:hover {
+  background: var(--accent2);
+  box-shadow: 0 6px 20px rgba(5,150,105,0.35);
+  transform: translateY(-1px);
+}
+.link-btn {
+  background: none; border: none;
+  color: var(--accent); font-size: 13px;
+  font-weight: 700; cursor: pointer;
+  transition: opacity 0.2s;
+}
+.link-btn:hover { opacity: 0.7; }
+
+/* ── FILTER BAR ──────────────────────────── */
+.filter-bar {
+  display: flex; gap: 10px;
+  flex-wrap: wrap; align-items: center;
+  margin-bottom: 20px;
+}
+.search-wrap { position: relative; }
+.search-icon {
+  position: absolute; left: 11px;
+  top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: var(--muted);
+  pointer-events: none;
+}
+.search-input {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px 8px 36px;
+  border-radius: 10px; font-size: 13px;
+  width: 220px; transition: all 0.2s;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(5,150,105,0.1);
+}
+.filter-select {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px; border-radius: 10px;
+  font-size: 13px; cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(5,150,105,0.1);
+}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .stats-grid  { grid-template-columns: 1fr 1fr; }
+  .issues-grid { grid-template-columns: 1fr; }
+  .search-input { width: 100%; }
+}

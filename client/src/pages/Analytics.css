@@ -1,0 +1,17 @@
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+}
+.chart-title {
+  font-size: 15px; font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  margin-bottom: 18px;
+}
+@media (max-width: 900px) { .analytics-grid { grid-template-columns: 1fr; } }
