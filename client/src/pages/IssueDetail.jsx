@@ -57,6 +57,17 @@ export default function IssueDetail() {
     setPosting(false);
   };
 
+  const handleDelete = async () => {
+  if (!window.confirm("Are you sure you want to delete this issue?")) return;
+  try {
+    await apiDeleteIssue(id);
+    toast.success("Issue deleted!");
+    navigate("/my-issues");
+  } catch {
+    toast.error("Failed to delete issue");
+  }
+};
+
   if (loading) return <Spinner />;
   if (!issue)  return null;
 
@@ -110,6 +121,28 @@ export default function IssueDetail() {
           <button className={`upvote-btn ${upvoted ? "voted" : ""}`} onClick={handleUpvote}>
             👍 {upvoted ? "Upvoted" : "Upvote"} ({upvotes})
           </button>
+
+         
+
+
+// Inside component
+const isOwner = user?._id === issue.reportedBy?._id;
+
+// Add in detail-actions div
+{isOwner && issue.status === "Pending" && (
+  <>
+    <button className="primary-btn"
+      onClick={() => navigate(`/issues/${issue._id}/edit`)}
+      style={{ background: "var(--blue)" }}>
+      ✏️ Edit Issue
+    </button>
+    <button className="primary-btn"
+      onClick={handleDelete}
+      style={{ background: "var(--red)" }}>
+      🗑️ Delete Issue
+    </button>
+  </>
+)}
 
           {(user?.role === "official" || user?.role === "admin") && (
             <select className="status-select" value={issue.status} onChange={handleStatus}>

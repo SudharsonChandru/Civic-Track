@@ -11,6 +11,8 @@ import ReportIssue  from "./pages/ReportIssue";
 import MyIssues     from "./pages/MyIssues";
 import Analytics    from "./pages/Analytics";
 import AdminUsers   from "./pages/AdminUsers";
+import EditProfile from "./pages/EditProfile";
+import EditIssue   from "./pages/EditIssue";
 
 function PrivateRoute({ children, roles }) {
   const { user, loading } = useAuth();
@@ -35,6 +37,8 @@ function AppRoutes() {
         <Route path="my-issues" element={<PrivateRoute roles={["citizen"]}><MyIssues /></PrivateRoute>} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="users"     element={<PrivateRoute roles={["admin"]}><AdminUsers /></PrivateRoute>} />
+        <Route path="edit-profile"        element={<EditProfile />} />
+        <Route path="issues/:id/edit"     element={<EditIssue />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>

@@ -34,5 +34,6 @@ router.put("/:id/status",    protect, authorize("official", "admin"), updateStat
 router.post("/:id/upvote",   protect, upvoteIssue);
 router.post("/:id/comment",  protect, addComment);
 router.delete("/:id",        protect, deleteIssue);
+router.put("/:id",           protect, updateIssue);
 
 module.exports = router;

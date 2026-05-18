@@ -85,4 +85,36 @@ const getMe = async (req, res) => {
   res.json(req.user);
 };
 
-module.exports = { register, login, getMe };
+
+const updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user)
+      return res.status(404).json({ message: "User not found" });
+
+    const { name, phone, password } = req.body;
+    if (name)  user.name  = name;
+    if (phone) user.phone = phone;
+
+    // Update password if provided
+    if (password) {
+      if (password.length < 6)
+        return res.status(400).json({ message: "Password must be at least 6 characters" });
+      user.password = password; // pre-save hook will hash it
+    }
+
+    await user.save();
+    res.json({
+      _id:   user._id,
+      name:  user.name,
+      email: user.email,
+      role:  user.role,
+      phone: user.phone,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { register, login, getMe, updateProfile };
+

@@ -10,17 +10,20 @@ const NAV = {
     { to: "/report",    icon: "➕", label: "Report Issue" },
     { to: "/my-issues", icon: "👤", label: "My Issues" },
     { to: "/analytics", icon: "📊", label: "Analytics" },
+    { to: "/edit-profile", icon: "✏️", label: "Edit Profile" },
   ],
   official: [
     { to: "/dashboard", icon: "🏠", label: "Dashboard" },
     { to: "/issues",    icon: "📋", label: "All Issues" },
     { to: "/analytics", icon: "📊", label: "Analytics" },
+    { to: "/edit-profile", icon: "✏️", label: "Edit Profile" },
   ],
   admin: [
     { to: "/dashboard", icon: "🏠", label: "Dashboard" },
     { to: "/issues",    icon: "📋", label: "All Issues" },
     { to: "/analytics", icon: "📊", label: "Analytics" },
     { to: "/users",     icon: "👥", label: "Manage Users" },
+    { to: "/edit-profile", icon: "✏️", label: "Edit Profile" },
   ],
 };
 

@@ -147,4 +147,33 @@ const deleteIssue = async (req, res) => {
   }
 };
 
-module.exports = { getIssues, getIssueById, createIssue, updateStatus, upvoteIssue, addComment, deleteIssue };
+
+const updateIssue = async (req, res) => {
+  try {
+    const issue = await Issue.findById(req.params.id);
+    if (!issue)
+      return res.status(404).json({ message: "Issue not found" });
+
+    // Only owner or admin can edit
+    if (issue.reportedBy.toString() !== req.user._id.toString() && req.user.role !== "admin")
+      return res.status(403).json({ message: "Not authorized to edit this issue" });
+
+    // Only pending issues can be edited
+    if (issue.status !== "Pending" && req.user.role !== "admin")
+      return res.status(400).json({ message: "Only pending issues can be edited" });
+
+    const { title, description, category, priority, location } = req.body;
+    if (title)       issue.title       = title;
+    if (description) issue.description = description;
+    if (category)    issue.category    = category;
+    if (priority)    issue.priority    = priority;
+    if (location)    issue.location    = location;
+
+    await issue.save();
+    res.json(issue);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getIssues, getIssueById, createIssue, updateIssue, updateStatus, upvoteIssue, addComment, deleteIssue };

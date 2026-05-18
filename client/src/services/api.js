@@ -48,4 +48,10 @@ export const apiGetTopUpvoted = () => instance.get("/api/analytics/top-upvoted")
 export const apiGetUsers   = ()      => instance.get("/api/users");
 export const apiUpdateUser = (id, d) => instance.put(`/api/users/${id}`, d);
 
+// ── Edit Issue ────────────────────────────────
+export const apiEditIssue = (id, data) => instance.put(`/api/issues/${id}`, data);
+
+// ── Update Profile ────────────────────────────
+export const apiUpdateProfile = (data) => instance.put("/api/auth/profile", data);
+
 export default instance;
