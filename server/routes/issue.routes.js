@@ -8,7 +8,7 @@ const { upload } = require("../config/cloudinary");
 const { protect, authorize } = require("../middleware/auth.middleware");
 const {
   getIssues, getIssueById, createIssue,
-  updateStatus, upvoteIssue, addComment, deleteIssue,
+  updateStatus, upvoteIssue, addComment, deleteIssue,updateIssue
 } = require("../controllers/issue.controller");
 
 /*
