@@ -17,6 +17,10 @@ export default function IssueDetail() {
   const [upvotes,  setUpvotes] = useState(0);
   const [posting,  setPosting] = useState(false);
 
+
+// Inside component
+const isOwner = user?._id === issue.reportedBy?._id;
+
   const load = async () => {
     try {
       const { data } = await apiGetIssue(id);
@@ -122,13 +126,6 @@ export default function IssueDetail() {
             👍 {upvoted ? "Upvoted" : "Upvote"} ({upvotes})
           </button>
 
-         
-
-
-// Inside component
-const isOwner = user?._id === issue.reportedBy?._id;
-
-// Add in detail-actions div
 {isOwner && issue.status === "Pending" && (
   <>
     <button className="primary-btn"
