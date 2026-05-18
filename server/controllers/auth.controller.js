@@ -24,7 +24,43 @@ const register = async (req, res) => {
   }
 };
 
-// @POST /api/auth/login
+// ✅ FIXED — checks isActive before allowing login
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password)
+      return res.status(400).json({ message: "Email and password required" });
+
+    // Find user by email
+    const user = await User.findOne({ email });
+
+    // Check if user exists
+    if (!user)
+      return res.status(401).json({ message: "Invalid email or password" });
+
+    // ✅ Check if account is active
+    if (!user.isActive)
+      return res.status(403).json({ message: "Your account has been deactivated. Please contact the administrator." });
+
+    // Check password
+    if (!(await user.matchPassword(password)))
+      return res.status(401).json({ message: "Invalid email or password" });
+
+    // Return user data with token
+    res.json({
+      _id:   user._id,
+      name:  user.name,
+      email: user.email,
+      role:  user.role,
+      token: generateToken(user._id),
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+/* // @POST /api/auth/login
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -42,7 +78,7 @@ const login = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}; */
 
 // @GET /api/auth/me
 const getMe = async (req, res) => {

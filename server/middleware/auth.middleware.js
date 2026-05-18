@@ -3,22 +3,24 @@ const User = require("../models/User.model");
 
 const protect = async (req, res, next) => {
   let token;
-
-  console.log("Headers:", req.headers.authorization); // ← debug log
-
+ console.log("Headers:", req.headers.authorization);
   if (req.headers.authorization?.startsWith("Bearer")) {
     try {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select("-password");
+      const user = await User.findById(decoded.id).select("-password");
 
-      if (!req.user) {
+      // Check user exists
+      if (!user)
         return res.status(401).json({ message: "User not found" });
-      }
 
+      // ✅ Check if account is still active
+      if (!user.isActive)
+        return res.status(403).json({ message: "Your account has been deactivated." });
+
+      req.user = user;
       next();
     } catch (err) {
-      console.error("Token error:", err.message);
       return res.status(401).json({ message: "Not authorized, token failed" });
     }
   } else {
